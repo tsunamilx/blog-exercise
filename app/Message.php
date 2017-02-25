@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 /**
  * App\Message
@@ -13,15 +14,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $body
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Message whereBody($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Message whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Message whereFromUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Message whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Message whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Message whereUserId($value)
+ * @method static Builder|Message whereBody($value)
+ * @method static Builder|Message whereCreatedAt($value)
+ * @method static Builder|Message whereFromUserId($value)
+ * @method static Builder|Message whereId($value)
+ * @method static Builder|Message whereUpdatedAt($value)
+ * @method static Builder|Message whereUserId($value)
  * @mixin \Eloquent
  */
-class Message extends Model
-{
-    //
+class Message extends Model {
+
+    /**
+     * Finds the messages those are for me.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function findMyMessages() {
+        return Message::whereUserId(auth()->user()->id)->get();
+    }
+
 }

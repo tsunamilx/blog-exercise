@@ -26,6 +26,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
+        'user_id' => 1,
         'body' => $faker->paragraphs(5, true)
     ];
 });

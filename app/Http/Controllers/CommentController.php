@@ -53,6 +53,12 @@ class CommentController extends Controller {
         Comment::destroy($id);
     }
 
+    /**
+     * Adds the message "who added/updated comment to your post".
+     *
+     * @param $action
+     * @param Post $post
+     */
     private function addMessage($action, Post $post) {
         $message = new Message();
 

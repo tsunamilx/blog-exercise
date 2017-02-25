@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use App\Tag;

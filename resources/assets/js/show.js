@@ -17,17 +17,32 @@ new Vue({
          * @returns {boolean}
          */
         isCommentOwner(user) {
+            if (!this.user) {
+                return false;
+            }
             return user.id == this.user.id;
         },
 
+        /**
+         * Enables the edition form of the comment.
+         * @param comment
+         */
         editComment(comment) {
             $(`#comment-${comment.id}`).removeClass('hidden')
         },
 
+        /**
+         * Enables the confirmation of the deletion of hte comment.
+         * @param comment
+         */
         deleteComment(comment) {
             $(`#comment-${comment.id}-delete`).removeClass('hidden')
         },
 
+        /**
+         * Saves the comment.
+         * @param comment
+         */
         saveComment(comment) {
             let body = comment.body;
             axios.put(`/comments/${comment.id}`, {body})
@@ -36,6 +51,10 @@ new Vue({
                 })
         },
 
+        /**
+         * Deletes the comment.
+         * @param comment
+         */
         confirmDeleteComment(comment) {
             axios.delete(`/comments/${comment.id}`)
                 .then((response) => {

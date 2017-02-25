@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
@@ -11,20 +12,20 @@ use Illuminate\Database\Query\Builder;
  * @property int $id
  * @property string $title
  * @property string $body
+ * @property int $user_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @method static Builder|Post whereUserId($value)
  * @method static Builder|Post whereBody($value)
  * @method static Builder|Post whereCreatedAt($value)
  * @method static Builder|Post whereId($value)
  * @method static Builder|Post whereTitle($value)
  * @method static Builder|Post whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property int $user_id
  * @property-read \App\User $author
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Tag[] $tags
- * @method static \Illuminate\Database\Query\Builder|\App\Post whereUserId($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @property-read Collection|Tag[] $tags
+ * @property-read Collection|Comment[] $comments
  * @property-read \App\User $user
+ * @mixin \Eloquent
  */
 class Post extends Model {
 
@@ -50,6 +51,18 @@ class Post extends Model {
                    ->get();
     }
 
+    /**
+     * Checks if current user is the owner of the post.
+     *
+     * @return bool
+     */
+    public function isOwner() {
+        if (auth()->guest()) {
+            return false;
+        }
+        return $this->user_id == auth()->user()->id;
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -62,7 +75,4 @@ class Post extends Model {
         return $this->belongsToMany(Tag::class);
     }
 
-    public function isOwner() {
-        return $this->user_id == auth()->user()->id;
-    }
 }
