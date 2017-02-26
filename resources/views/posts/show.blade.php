@@ -106,5 +106,5 @@
         const comments = {!! json_encode($post->comments) !!};
         const user = {!! json_encode(auth()->user()) !!}
     </script>
-    <script src="{{ asset('js/show.js') }}"></script>
+    <script src="{{ mix('/js/show.js') }}"></script>
 @endsection

@@ -21,5 +21,5 @@
     <script>
         const post = {!! json_encode($post) !!};
     </script>
-    <script src="{{ asset('js/create.js') }}"></script>
+    <script src="{{ mix('/js/create.js') }}"></script>
 @endsection

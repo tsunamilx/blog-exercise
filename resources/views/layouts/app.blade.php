@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -96,7 +96,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="{{ asset('js/vendor.js') }}"></script>
+<script src="{{ mix('/js/vendor.js') }}"></script>
 <script>
     window.axios.defaults.headers.common = {
         'X-CSRF-TOKEN': window.Laravel.csrfToken,

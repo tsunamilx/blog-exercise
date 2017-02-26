@@ -23,6 +23,6 @@
         const post = {!! json_encode($post) !!};
         const tags = {!! json_encode($post->tags) !!};
     </script>
-    <script src="{{ asset('js/edit.js') }}"></script>
+    <script src="{{ mix('/js/edit.js') }}"></script>
 @endsection
 
