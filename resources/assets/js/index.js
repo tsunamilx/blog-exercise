@@ -21,7 +21,9 @@ new Vue({
          */
         load() {
             this.loading = true;
-            axios.get(`/posts/load?page=${this.page}`)
+
+            let path = this.path();
+            axios.get(`${path}?page=${this.page}`)
                 .then((response) => {
 
                     // Check if there are more items.
@@ -43,6 +45,24 @@ new Vue({
                     this.loading = false;
                 });
         },
+
+        /**
+         * Determines the path to load posts.
+         *
+         * @returns {string}
+         */
+        path() {
+            // /posts => /posts/load
+            // /tags/1 => /tags/1/load
+            let path = location.pathname;
+            if (path.endsWith('/')) {
+                path += 'load';
+            } else {
+                path += '/load';
+            }
+
+            return path;
+        }
 
     }
 });

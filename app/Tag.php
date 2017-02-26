@@ -28,6 +28,21 @@ class Tag extends Model {
     }
 
     /**
+     * Loads a listing of posts by page.
+     *
+     * @param int $page
+     * @return \Illuminate\Support\Collection
+     */
+    public function loadPage($page = 0) {
+        return $this->posts()
+                    ->with('tags')
+                    ->with('user')
+                    ->take(Post::ITEM_PER_PAGE)
+                    ->offset($page * Post::ITEM_PER_PAGE)
+                    ->get();
+    }
+
+    /**
      *  Finds the tag ids or create them.
      *
      * @param string $tags Tag names separated by comma。

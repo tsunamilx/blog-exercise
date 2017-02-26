@@ -57,4 +57,16 @@ class User extends Authenticatable
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Checks if current user is myself.
+     *
+     * @return bool
+     */
+    public function isMyself() {
+        if (auth()->guest()) {
+            return false;
+        }
+        return $this->id == auth()->user()->id;
+    }
 }

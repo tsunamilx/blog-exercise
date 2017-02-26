@@ -3,9 +3,15 @@
 @section('content')
 
     <h1> {{ $post->title }} </h1>
-    <span> {{ $post->user->name }} </span>
+    <span>
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        {{ $post->user->name }}
+    </span>
     <span class="tag label label-primary"
-          v-for="tag in tags"> @{{ tag.name }} </span>
+          v-for="tag in tags">
+        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+        @{{ tag.name }}
+    </span>
     <article>
         <p v-for="p in post.body.split('\n')"> @{{ p }} </p>
     </article>

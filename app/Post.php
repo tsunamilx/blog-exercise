@@ -44,8 +44,8 @@ class Post extends Model {
      */
     public static function loadPage($page = 0) {
         return Post::latest()
-                    ->with('tags')
-                    ->with('user')
+                   ->with('tags')
+                   ->with('user')
                    ->take(self::ITEM_PER_PAGE)
                    ->offset($page * self::ITEM_PER_PAGE)
                    ->get();

@@ -15,8 +15,16 @@
   }
 }
 
-span.tag {
+span.tag, a.tag {
   margin-right: 5px;
+}
+
+.user-image {
+  max-width: 200px;
+}
+
+.user.form-group {
+  margin-left: 17%;
 }
 
 .glyphicon-refresh-animate {
