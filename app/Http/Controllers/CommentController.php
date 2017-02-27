@@ -36,6 +36,8 @@ class CommentController extends Controller {
      * @return Comment
      */
     public function update(CommentRequest $request, Comment $comment) {
+        $this->authorize('update', $comment);
+
         $comment->body = $request->body;
         $comment->save();
 
@@ -47,10 +49,14 @@ class CommentController extends Controller {
     /**
      * Deletes the comment.
      *
-     * @param $id
+     * @param Comment $comment
+     * @return Comment
      */
-    public function delete($id) {
-        Comment::destroy($id);
+    public function delete(Comment $comment) {
+        $this->authorize('delete', $comment);
+        $comment->delete();
+
+        return $comment;
     }
 
     /**

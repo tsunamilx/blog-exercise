@@ -3,15 +3,15 @@
 @section('content')
 
     <h1> {{ $post->title }} </h1>
-    <span>
+    <a href="{{ route('users_show', ['user' => $post->user_id]) }}">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         {{ $post->user->name }}
-    </span>
-    <span class="tag label label-primary"
-          v-for="tag in tags">
+    </a>
+    <a v-for="tag in tags" :href="'/tags/' + tag.id"
+       class="tag label label-primary">
         <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
         @{{ tag.name }}
-    </span>
+    </a>
     <article>
         <p v-for="p in post.body.split('\n')"> @{{ p }} </p>
     </article>

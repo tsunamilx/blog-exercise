@@ -24,6 +24,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user) {
+        $this->authorize('update', $user);
+
         return view('users.edit', compact('user'));
     }
 
@@ -35,6 +37,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, User $user) {
+        $this->authorize('update', $user);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -59,11 +62,13 @@ class UserController extends Controller {
     /**
      * Remove the specified user from storage.
      *
-     * @param  int $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        User::destroy($id);
+    public function destroy(User $user) {
+        $this->authorize('update', $user);
+
+        $user->delete();
         auth()->logout();
 
         return redirect()->route('posts_index');

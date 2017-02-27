@@ -69,6 +69,7 @@ class PostController extends Controller {
      * @return Response
      */
     public function edit(Post $post) {
+        $this->authorize('update', $post);
         return view('posts.edit', compact('post'));
     }
 
@@ -80,6 +81,7 @@ class PostController extends Controller {
      * @return Response
      */
     public function update(PostRequest $request, Post $post) {
+        $this->authorize('update', $post);
         $this->save($request, $post);
 
         return redirect()->route('posts_show', ['post' => $post->id]);
@@ -88,11 +90,14 @@ class PostController extends Controller {
     /**
      * Remove the specified post from storage.
      *
-     * @param  int $id
+     * @param  Post $post
      * @return mixed
      */
-    public function destroy($id) {
-        return Post::destroy($id);
+    public function destroy(Post $post) {
+        $this->authorize('delete', $post);
+        $post->delete();
+
+        return $post;
     }
 
     /**
@@ -107,7 +112,7 @@ class PostController extends Controller {
         $post->user_id = auth()->user()->id;
         $post->save();
 
-        if($request->tags) {
+        if ($request->tags) {
             $tags = Tag::findOrCreate($request->tags);
             $post->tags()->sync($tags);
         }
